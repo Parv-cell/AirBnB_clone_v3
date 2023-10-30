@@ -26,7 +26,7 @@ def not_found(error):
     ---
     response:
       404:
-        description: resource was not found
+        description: resource wasnt found
     """
     return make_response(jsonify({'error': "Not found"}), 404)
 

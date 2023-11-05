@@ -1,32 +1,32 @@
 #!/usr/bin/python3
 """
-Flask App which integrates with AirBnB static HTML Template
+Flask App that integrates with AirBnB static HTML Template
 """
 import uuid
 from flask import Flask, render_template, url_for
 from models import storage
 
-# flasks setup
+# flask setup
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 port = 5000
 host = '0.0.0.0'
 
 
-# start flask page rendering
+# begin flask page rendering
 @app.teardown_appcontext
 def teardown_db(exception):
     """
-    after each request, this method calls .close() (i.e. .remove()) on
-    the current SQLAlchemy Session
+    after each request, the method calls .close() (i.e. .remove()) on
+    current SQLAlchemy Session
     """
     storage.close()
 
 
-@app.route('/1-hbnb')
+@app.route('/2-hbnb/')
 def hbnb_filters(the_id=None):
     """
-    handles the request to custom template with states, cities & amentities
+    handle the request to custom template with states, cities & amentities
     """
     state_objs = storage.all('State').values()
     states = dict([state.name, state] for state in state_objs)
@@ -35,7 +35,7 @@ def hbnb_filters(the_id=None):
     users = dict([user.id, "{} {}".format(user.first_name, user.last_name)]
                  for user in storage.all('User').values())
     cache_id = (str(uuid.uuid4()))
-    return render_template('1-hbnb.html',
+    return render_template('2-hbnb.html',
                            states=states,
                            amens=amens,
                            places=places,
